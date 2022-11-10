@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long count = 1;
+    long long ans = 1;
+    string s;
+    cin>>s;
+    for(int i=1;i<s.size();i++){
+        if(s[i] == s[i-1]){
+            count++;
+            ans = max(ans,count);
+        }
+        else{
+            ans = max(ans,count);
+            count = 1;
+        }
+    }
+
+    cout<<ans<<endl;
+    return 0;
+}
