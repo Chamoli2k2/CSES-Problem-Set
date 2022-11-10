@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int mod = 1e9+7;
+long long pow2(int base,int pow){
+    // base case
+    if(pow == 0){
+        return 1;
+    }
+
+    long long halfAns = pow2(base,pow/2) % mod;
+
+    if(pow & 1){
+        return (halfAns % mod * halfAns % mod * base) % mod;
+    }
+
+    return (halfAns * halfAns) % mod;
+}
+int main(){
+    int n;
+    cin>>n;
+    cout<<pow2(2,n)<<endl;
+    return 0;
+}
