@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+void permute(string s,set<string> &st,int idx){
+    // base case
+    if(idx >= s.size()){
+        st.insert(s);
+        return;
+    }
+
+    // Starting the permutation
+    for(int i=idx;i<s.size();i++){
+        swap(s[idx],s[i]);
+        permute(s,st,idx+1);
+        // backtracking
+        swap(s[idx],s[i]);
+    }
+}
+int main(){
+    string s;
+    cin>>s;
+
+    // Creating the set so we don't get repeated answer
+    set<string> st;
+    permute(s,st,0);
+    cout<<st.size()<<endl;
+    for(auto i : st){
+        cout<<i<<endl;
+    }
+
+    return 0;
+}
