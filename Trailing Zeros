@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long n;
+    cin>>n;
+    if(n < 5){
+        cout<<0<<endl;
+    }
+    else{
+        long long count = 0;
+        for(long long i=5;i<=n;i=i+5){
+            long long temp = i;
+            while(temp){
+                if(temp % 5 == 0){
+                    count++;
+                }
+                else{
+                    break;
+                }
+                temp /= 5;
+            }
+        }
+        cout<<count<<endl;
+    }
+    return 0;
+}
