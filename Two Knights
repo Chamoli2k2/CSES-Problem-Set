@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long t;
+    cin>>t;
+    long long ans = 0;
+    
+    for(long long n=1;n<=t;n++){
+        // Base case
+        if(n == 1){
+            cout<<0<<endl;
+        }
+        else if(n == 2){
+            cout<<6<<endl;
+        }
+        else{
+            // Total no of possibility
+            // No of way of selecting 2 place from k place is kC2
+            long long k = n * n;
+            ans = k * (k-1) / 2;
+
+            // total not valid moves
+            // In n * n matrix 4 * (n-1) * (n-2) ways are not valid
+            long long notValid = 4 * (n-1) * (n-2);
+
+            cout<<ans-notValid<<endl;
+        }
+    }
+    
+    return 0;
+}
