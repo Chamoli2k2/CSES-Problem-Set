@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long n;
+    cin>>n;
+    long long sum = n * (n+1) / 2;
+    if(sum % 2 != 0){
+        cout<<"NO"<<endl;
+    }
+    else{
+        cout<<"YES"<<endl;
+        int count = 0;
+        long long target = sum / 2;
+        vector<long long> arr(n+1,-1);
+        long long k = n;
+        while(target){
+            count++;
+            if(target > k || (target <= k && arr[target] == 1)){
+                target -= k;
+                arr[k--] = 1;
+            }
+            else{
+                arr[target] = 1;
+                break;
+            }
+        }
+        cout<<count<<endl;
+        for(long long i=1;i<=n;i++){
+            if(arr[i] == 1){
+                cout<<i<<" ";
+            }
+        }
+        cout<<endl<<n-count<<endl;
+
+        for(long long i=1;i<=n;i++){
+            if(arr[i] == -1){
+                cout<<i<<" ";
+            }
+        }
+        cout<<endl;
+    }
+    return 0;
+}
