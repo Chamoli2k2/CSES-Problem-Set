@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// Global variable
+vector<vector<int>> v;
+
+void solve(int n,int f,int m,int e,long long &step){
+    // Base case
+    if(n == 1){
+        step++;
+        vector<int> temp2 = {f,e};
+        v.push_back(temp2);
+        return;
+    }
+    
+    // shifting n-1 disk
+    solve(n-1,f,e,m,step);
+    step++;
+    vector<int> temp3 = {f,e};
+    v.push_back(temp3);
+    solve(n-1,m,f,e,step);
+}
+
+long long toh(int N, int from, int aux, int to) {
+    long long step = 0;
+    solve(N,from,aux,to,step);
+    return step;
+}
+int main(){
+    int n;
+    cin>>n;
+    int ans = toh(n,1,2,3);
+    cout<<ans<<endl;
+
+    for(auto i : v){
+        cout<<i[0]<<" "<<i[1]<<endl;
+    }
+
+    return 0;
+}
