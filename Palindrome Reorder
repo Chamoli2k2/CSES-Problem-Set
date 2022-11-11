@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    string s;
+    cin>>s;
+    unordered_map<char,int> mp;
+    for(int i=0;i<s.size();i++){
+        mp[s[i]]++;
+    }
+
+    int count1 = 0;
+    int flag = 0;
+    for(auto i : mp){
+        if(i.second % 2 == 0){
+            continue;
+        }
+        else{
+            count1++;
+        }
+
+        if(count1 >= 2){
+            flag = 1;
+            break;
+        }
+    }
+
+    // Checking
+    if(flag){
+        cout<<"NO SOLUTION"<<endl;
+    }
+    else{
+        string ans1 = "";
+        string ans2 = "";
+        string ans3 = "";
+
+        for(auto i : mp){
+            if(i.second % 2 == 0){
+                int k = i.second / 2;
+                while(k--){
+                    ans1 += i.first;
+                }
+                k = i.second / 2;
+                while(k--){
+                    ans2 += i.first;
+                }
+            }
+            else{
+                int k = i.second;
+                while(k--){
+                    ans3 += i.first;
+                }
+            }
+        }
+
+        reverse(ans2.begin(),ans2.end());
+        string s = ans1 + ans3 + ans2;
+
+        cout<<s<<endl;
+    }
+    
+    return 0;
+}
