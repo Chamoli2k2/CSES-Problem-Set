@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 8;
+int ans = 0;
+int k = 2 * N - 1;
+vector<int> col(N, 0);
+vector<int> leftDiagonal(k, 0);
+vector<int> rightDiagonal(k, 0);
+bool isSafe(int rw, int cl)
+{
+    // checking if col - left diagonal - right diagonal is at striking position
+    if (col[cl] == 0 && leftDiagonal[rw + cl] == 0 && rightDiagonal[rw - cl + N - 1] == 0)
+    {
+        return true;
+    }
+    return false;
+}
+
+void solve(vector<string> &board, int rw)
+{
+    // Base case
+    if (rw == N)
+    {
+        ans++;
+        return;
+    }
+
+    for (int cl = 0; cl < N; cl++)
+    {
+        if (isSafe(rw, cl) && board[rw][cl] == '.')
+        {
+            col[cl] = 1;
+            leftDiagonal[rw + cl] = 1;
+            rightDiagonal[N - 1 + rw - cl] = 1;
+            board[rw][cl] = 'Q';
+            solve(board, rw + 1);
+            col[cl] = 0;
+            leftDiagonal[rw + cl] = 0;
+            rightDiagonal[N - 1 + rw - cl] = 0;
+            board[rw][cl] = '.';
+        }
+    }
+}
+
+void solveNQueens(vector<string> &board)
+{
+    solve(board, 0);
+}
+int main()
+{
+    vector<string> board;
+    string temp;
+    for (int i = 0; i < 8; i++)
+    {
+        cin >> temp;
+        board.push_back(temp);
+    }
+
+    solveNQueens(board);
+    cout << ans << endl;
+    return 0;
+}
