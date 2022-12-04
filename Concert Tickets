@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    multiset<int> ticket;
+    vector<int> price(m,0);
+    
+    for(int i=0;i<n;i++){ 
+        int t;
+        cin>>t;
+        ticket.insert(t);
+    }
+    
+    for(int i=0;i<m;i++) cin>>price[i];
+    
+    for(int i=0;i<m;i++){
+        auto idx = ticket.lower_bound(price[i]+1);
+        
+        if(idx == ticket.begin()){
+            cout<<-1;
+        }
+        else{
+            idx--;
+            cout<<*idx;
+            ticket.erase(idx);
+        }
+        cout<<endl;
+    }
+    
+    
+
+    return 0;
+}
