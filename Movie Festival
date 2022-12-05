@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+// comparator
+int main()
+{
+    int n;
+    cin>>n;
+    
+    vector<pair<int,int>> nums;
+    
+    // inserting into nums
+    for(int i=0;i<n;i++){
+        int a, b;
+        cin>>a>>b;
+        nums.push_back({a,1});
+        nums.push_back({b,-1});
+    }
+    
+    // sorting the nums
+    sort(nums.begin(),nums.end());
+    int ans = 0, count = 0;
+    int sz = nums.size();
+    
+    for(int i=0;i<sz;i++){
+        count += nums[i].second;
+        ans = max(ans,count);
+    }
+    
+    cout<<ans<<endl;
+    
+    return 0;
+}
+
