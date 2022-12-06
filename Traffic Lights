@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int k,n;
+    vector<int> ans;
+    cin>>k>>n;
+    set<int> st;
+    multiset<int> mt;
+    st.insert(0);
+    st.insert(k);
+    mt.insert(k);
+    
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        st.insert(x);
+        auto itr = st.find(x);
+        int prv = *prev(itr);
+        int nxt = *next(itr);
+        
+        mt.erase(mt.find(nxt - prv));
+        mt.insert(nxt-x);
+        mt.insert(x-prv);
+        
+        cout<<*mt.rbegin()<<" ";
+    }
+    
+    return 0;
+}
+
