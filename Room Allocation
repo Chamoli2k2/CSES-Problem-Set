@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    vector<pair<pair<int,int>,int>> customers(n);
+
+    // storing entry and departure of customer with index
+    for(int i=0;i<n;i++){
+        cin>>customers[i].first.first>>customers[i].first.second;
+        customers[i].second = i;
+    }
+
+    // sorting
+    sort(customers.begin(),customers.end());
+
+    vector<int> roomAssigned(n,0);
+    int last_room = 0, TotalRoom = 0;
+
+    // Making priority queue
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> room;
+
+    for(int i=0;i<n;i++){
+        if(room.empty()){
+            last_room++;
+            room.push({customers[i].first.second,last_room});
+            roomAssigned[customers[i].second] = last_room;
+        }
+        else{
+            if(room.top().first < customers[i].first.first){
+                int RoomNo = room.top().second;
+                room.pop();
+                roomAssigned[customers[i].second] = RoomNo;
+                room.push({customers[i].first.second,RoomNo});
+            }
+            else{
+                last_room++;
+                roomAssigned[customers[i].second] = last_room;
+                room.push({customers[i].first.second,last_room});
+            }
+        }
+
+        TotalRoom = max(TotalRoom,(int)room.size());
+    } 
+
+    cout<<TotalRoom<<endl;
+    for(auto i : roomAssigned){
+        cout<<i<<" ";
+    }
+    
+    return 0;
+}
