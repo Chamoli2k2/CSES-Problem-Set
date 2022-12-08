@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+int mod = 1e9 + 7;
+
+int solve(vector<int> &nums,vector<vector<int>> &dp,int idx,int target){
+    // base case
+    if(target == 0) return 1;
+    if(idx >= nums.size()) return 0;
+
+
+    if(dp[idx][target] != -1) return dp[idx][target];
+    
+    int take = 0;
+    if(nums[idx] <= target){
+        take = solve(nums,dp,0,target-nums[idx]);
+    }
+
+    int notTake = solve(nums,dp,idx+1,target);
+
+    return dp[idx][target] = (take % mod + notTake % mod) % mod;
+}
+int count(int n){
+    vector<int> nums(6,0);
+    for(int i=0;i<6;i++){
+        nums[i] = i+1;
+    }
+
+    vector<vector<int>> dp(6,vector<int>(n+1,-1));
+    return solve(nums,dp,0,n);
+}
+int main(){
+    int n;
+    cin>>n;
+    cout<<count(n);
+    return 0;
+}
