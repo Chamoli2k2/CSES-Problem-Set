@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+int mod = 1e9 + 7;
+
+int solve(vector<string> &nums,vector<vector<int>> &dp,int i,int j){
+    // Base case
+    if(i < 0 || j < 0 || nums[i][j] == '*'){
+        return 0;
+    }
+
+    if(i == 0 && j == 0) return 1;
+
+    if(dp[i][j] != -1) return dp[i][j];
+
+    // left
+    int ls = solve(nums,dp,i,j-1);
+
+    // up
+    int us = solve(nums,dp,i-1,j);
+
+    return dp[i][j] = (ls % mod + us % mod) % mod;
+}
+
+// Top Down
+int count(int n){
+    vector<string> nums(n,string(n,'*'));
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>nums[i][j];
+        }
+    }
+
+    vector<vector<int>> dp(n,vector<int>(n,-1));
+    return solve(nums,dp,n-1,n-1);
+}
+
+int main(){
+    int n;
+    cin>>n;
+    cout<<count(n);
+    return 0;
+}
