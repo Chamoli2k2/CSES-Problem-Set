@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int mod = 1e9 + 7;
+
+int solve(int n,vector<int> &dp){
+    // base case
+    if(n == 0) return 0;
+    
+    if(n < 0) return 1e7;
+
+    if(dp[n] != -1) return dp[n];
+
+    int ans = 1e7;
+    string s = to_string(n);
+    for(int i=0;i<s.size();i++){
+        if(s[i] == '0') continue;
+        int k = 1 + solve(n-(s[i]-'0'),dp);
+        ans = min(k,ans);
+    }
+
+    return dp[n] = ans;
+}
+
+// Top Down
+int count(int n){
+    vector<int> dp(n+1,-1);
+    return solve(n,dp);
+}
+
+int main(){
+    int n;
+    cin>>n;
+    cout<<count(n);
+    return 0;
+}
