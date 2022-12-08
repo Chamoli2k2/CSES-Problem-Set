@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int mod = 1e9 + 7;
+
+// Top Down
+int count(int n,int k){
+    vector<int> price(n);
+    vector<int> page(n);
+    for(int i=0;i<n;i++){
+        cin>>price[i];
+    }
+
+    for(int i=0;i<n;i++){
+        cin>>page[i];
+    }
+
+    vector<vector<int>> dp(n+1,vector<int>(k+1,0));
+
+    for(int i=n-1;i>=0;i--){
+        for(int target=1;target<=k;target++){
+            int take = 0;
+            if(target >= price[i]){
+                take = page[i] + dp[i+1][target-price[i]];
+            }
+
+            int notTake = dp[i+1][target];
+
+            dp[i][target] = max(take,notTake);
+        }
+    }
+
+    return dp[0][k];
+}
+
+int main(){
+    int n, k;
+    cin>>n>>k;
+    cout<<count(n,k);
+    return 0;
+}
